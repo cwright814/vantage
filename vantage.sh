@@ -22,7 +22,6 @@ else
     WAS_ACPI_CALL_LOADED=false
 fi
 
-RAPID_CHARGE_STATE="?"
 
 touchpad_id="$(xinput list | grep "Touchpad" | cut -d '=' -f2 | awk '{print $1}')"
 
@@ -75,6 +74,13 @@ show_submenu() {
 show_submenu_on_off() {
     show_submenu "$@" "$SUBMENU_ON" "$SUBMENU_OFF"
 }
+
+RAPID_CHARGE_STATE="?"
+if [ "$HAS_ACPI_CALL" = true ] && test -f $VPC/conservation_mode; then
+    if [ "$(get_conservation_mode_status)" = "On" ]; then
+        RAPID_CHARGE_STATE="Off"
+    fi
+fi
 
 main() {
     while :; do
