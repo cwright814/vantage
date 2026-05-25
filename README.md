@@ -2,7 +2,7 @@
 This shell script helps you to provide [Lenovo Vantage](https://www.lenovo.com/us/en/software/vantage) in GNU/Linux operating system.
 
 ## :rocket: Features
-![image](images/main_menu.png)
+<img src="images/main_menu.png" width="352" alt="Lenovo Vantage Main Menu">
 * Conservation Mode (Limit battery charge to prolong its life)
 * Always-On USB (Enable USB power output when the system is in low-power modes)
 * Thermal/Fan Mode (Quiet, balanced and performance modes)
