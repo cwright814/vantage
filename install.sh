@@ -85,3 +85,8 @@ case $distro in
 esac
 
 echo "Requirements are installed"
+
+echo ""
+echo "Optional: For Rapid Charge support on Lenovo Legion systems,"
+echo "install the acpi_call kernel module (e.g., 'sudo apt install acpi-call-dkms')."
+

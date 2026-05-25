@@ -11,6 +11,7 @@ This shell script helps you to provide [Lenovo Vantage](https://www.lenovo.com/u
 * Microphone Privacy Switch
 * Touchpad Switch
 * Wi-Fi Switch
+* Rapid Charge (140W stateless toggle for Lenovo Legion systems)
 
 ## :computer: Installation
 
@@ -54,4 +55,31 @@ For Fedora:
 ```bash
 sudo dnf install zenity xinput NetworkManager pipewire-pulseaudio
 ```
+
+## :zap: Optional Enhancements
+
+### Advanced Power Management (Lenovo Legion Systems)
+
+To enable the stateless 140W Rapid Charge toggle, your system requires the `acpi_call` kernel module.
+
+Install the required package for your distribution:
+
+**Debian / Ubuntu / Pop!_OS / Mint:**
+```bash
+sudo apt install acpi-call-dkms
+```
+
+**Arch Linux:**
+```bash
+sudo pacman -S acpi_call-dkms
+```
+
+**Fedora:**
+```bash
+sudo dnf install acpi_call
+```
+
+The application automatically detects the module at startup. If available, the Rapid Charge option appears in the menu.
+
 ---
+

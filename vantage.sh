@@ -3,9 +3,26 @@
 #Requirement: zenity, xinput, networkmanager, pulseaudio or pipewire-pulse
 #Authors: Nizam (nizam@europe.com), Lanchon (https://github.com/Lanchon)
 
+# Ensure standard system binary paths are available
+export PATH="/sbin:/usr/sbin:$PATH"
+
 ENABLE_FAN_MODE=1
 
 VPC="/sys/bus/platform/devices/VPC2004\:*"
+
+if modinfo acpi_call >/dev/null 2>&1; then
+    HAS_ACPI_CALL=true
+    if lsmod | grep -q "^acpi_call"; then
+        WAS_ACPI_CALL_LOADED=true
+    else
+        WAS_ACPI_CALL_LOADED=false
+    fi
+else
+    HAS_ACPI_CALL=false
+    WAS_ACPI_CALL_LOADED=false
+fi
+
+RAPID_CHARGE_STATE="?"
 
 touchpad_id="$(xinput list | grep "Touchpad" | cut -d '=' -f2 | awk '{print $1}')"
 
@@ -63,6 +80,7 @@ main() {
     while :; do
         local options=()
         test -f $VPC/conservation_mode && options+=("Conservation Mode" "$(get_conservation_mode_status)")
+        test "$HAS_ACPI_CALL" = true && options+=("Rapid Charge" "$RAPID_CHARGE_STATE")
         test -f $VPC/usb_charging && options+=("Always-On USB" "$(get_usb_charging_status)")
         test -f $VPC/fan_mode && test "$ENABLE_FAN_MODE" = 1 && options+=("Fan Mode" "$(get_fan_mode_status)")
         test -f $VPC/fn_lock && options+=("FN Lock" "$(get_fn_lock_status)")
@@ -76,8 +94,40 @@ main() {
             "Conservation Mode")
                 local submenu="$(show_submenu_on_off "Conservation Mode" "$(get_conservation_mode_status)")"
                 case "$submenu" in
-                    "$SUBMENU_ON") echo "1" | pkexec tee $VPC/conservation_mode ;;
+                    "$SUBMENU_ON") echo "1" | pkexec tee $VPC/conservation_mode; test "$HAS_ACPI_CALL" = true && RAPID_CHARGE_STATE="Off" ;;
                     "$SUBMENU_OFF") echo "0" | pkexec tee $VPC/conservation_mode ;;
+                esac
+                ;;
+            "Rapid Charge")
+                local rc_q="FALSE" rc_on="FALSE" rc_off="FALSE"
+                case "$RAPID_CHARGE_STATE" in
+                    "?")   rc_q="TRUE" ;;
+                    "On")  rc_on="TRUE" ;;
+                    "Off") rc_off="TRUE" ;;
+                esac
+                local submenu="$(zenity --list --radiolist \
+                    --title "Rapid Charge" --text "Current: $RAPID_CHARGE_STATE" \
+                    --column "" --column "Action" --height 220 --width 350 \
+                    $rc_on  "On" \
+                    $rc_off "Off" \
+                    $rc_q   "?" \
+                )"
+                case "$submenu" in
+                    "On")
+                        if [ "$RAPID_CHARGE_STATE" != "On" ]; then
+                            pkexec bash -c "modprobe acpi_call && for i in {1..10}; do [ -e /proc/acpi/call ] && break; sleep 1; done && [ -e /proc/acpi/call ] && SUCCESS=false && for j in {1..5}; do printf '%s\n' '\_SB.PCI0.LPC0.EC0.VPC0.SBMC 0x07' > /proc/acpi/call; grep -q '0x0' /proc/acpi/call && SUCCESS=true && break; sleep 1; done; { [ '$WAS_ACPI_CALL_LOADED' = true ] || modprobe -r acpi_call || true; }; \$SUCCESS" && \
+                            RAPID_CHARGE_STATE="On"
+                        fi
+                        ;;
+                    "Off")
+                        if [ "$RAPID_CHARGE_STATE" != "Off" ]; then
+                            pkexec bash -c "modprobe acpi_call && for i in {1..10}; do [ -e /proc/acpi/call ] && break; sleep 1; done && [ -e /proc/acpi/call ] && SUCCESS=false && for j in {1..5}; do printf '%s\n' '\_SB.PCI0.LPC0.EC0.VPC0.SBMC 0x08' > /proc/acpi/call; grep -q '0x0' /proc/acpi/call && SUCCESS=true && break; sleep 1; done; { [ '$WAS_ACPI_CALL_LOADED' = true ] || modprobe -r acpi_call || true; }; \$SUCCESS" && \
+                            RAPID_CHARGE_STATE="Off"
+                        fi
+                        ;;
+                    "?")
+                        :
+                        ;;
                 esac
                 ;;
             "Always-On USB")
