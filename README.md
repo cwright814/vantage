@@ -5,7 +5,7 @@ This shell script helps you to provide [Lenovo Vantage](https://www.lenovo.com/u
 <img src="images/main_menu.png" width="352" alt="Lenovo Vantage Main Menu">
 
 * Conservation Mode — Limit battery charge to prolong its life
-* Rapid Charge — 140W charging while powered off for Lenovo Legion systems
+* [Rapid Charge](https://github.com/cwright814/vantage#advanced-power-management-lenovo-legion-systems) — 140W charging while powered off for Lenovo Legion systems
 * Always-On USB — Enable USB power output when the system is in low-power modes
 * Thermal/Fan Mode — Quiet, balanced and performance modes
 * FN Key Lock
@@ -60,7 +60,7 @@ sudo dnf install zenity xinput NetworkManager pipewire-pulseaudio
 
 ### Advanced Power Management (Lenovo Legion Systems)
 
-To enable the Lenovo Legion 140W Rapid Charge toggle, your system requires the "ACPI Call" kernel module.
+To enable the Lenovo Legion "Rapid Charge" toggle, your system requires the "ACPI Call" kernel module.
 
 > [!WARNING]
 > If you use Secure Boot, you must either sign the compiled kernel module or disable Secure Boot in your BIOS for this driver to load.
