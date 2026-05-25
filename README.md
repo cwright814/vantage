@@ -3,7 +3,9 @@ This shell script helps you to provide [Lenovo Vantage](https://www.lenovo.com/u
 
 ## :rocket: Features
 <img src="images/main_menu.png" width="352" alt="Lenovo Vantage Main Menu">
+
 * Conservation Mode (Limit battery charge to prolong its life)
+* Rapid Charge (140W charging while powered off for Lenovo Legion systems)
 * Always-On USB (Enable USB power output when the system is in low-power modes)
 * Thermal/Fan Mode (Quiet, balanced and performance modes)
 * FN Key Lock
@@ -11,7 +13,6 @@ This shell script helps you to provide [Lenovo Vantage](https://www.lenovo.com/u
 * Microphone Privacy Switch
 * Touchpad Switch
 * Wi-Fi Switch
-* Rapid Charge (140W stateless toggle for Lenovo Legion systems)
 
 ## :computer: Installation
 
@@ -40,7 +41,6 @@ sudo make uninstall
 * `networkmanager`
 * `pulseaudio` or `pipewire-pulse`
 
-
 if they are not already installed, you can install them using your package manager.
 
 For Arch Linux:
@@ -60,7 +60,7 @@ sudo dnf install zenity xinput NetworkManager pipewire-pulseaudio
 
 ### Advanced Power Management (Lenovo Legion Systems)
 
-To enable the stateless 140W Rapid Charge toggle, your system requires the `acpi_call` kernel module.
+To enable the Lenovo Legion 140W Rapid Charge toggle, your system requires the `acpi_call` kernel module.
 
 Install the required package for your distribution:
 
@@ -81,5 +81,5 @@ sudo dnf install acpi_call
 
 The application automatically detects the module at startup. If available, the Rapid Charge option appears in the menu.
 
----
-
+> [!NOTE]
+> Conservation Mode and Rapid Charge are mutually exclusive - enabling one disables the other. This is a hardware limitation.
