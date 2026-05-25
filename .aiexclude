@@ -1,0 +1,169 @@
+# ==============================================================================
+# Google AntiGravity CLI Standards: AI Context Exclusion (.aiexclude)
+# ==============================================================================
+# This file specifies paths and glob patterns that should be excluded from being 
+# indexed, read, or used as context by AI agents (e.g., Google AntiGravity CLI/Desktop,
+# Gemini Code Assist, and other AI developers).
+#
+# Syntax follows standard .gitignore rules.
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Version Control & Repository Metadata
+# ------------------------------------------------------------------------------
+.git/
+.github/
+.gitlab/
+.hg/
+.svn/
+
+# ------------------------------------------------------------------------------
+# 2. AI & Agent Configurations (Internal/State files)
+# ------------------------------------------------------------------------------
+.antigravitycli/
+.gemini/
+.agents/
+
+# ------------------------------------------------------------------------------
+# 3. IDE, Editor & Toolchain Configurations
+# ------------------------------------------------------------------------------
+# VS Code
+.vscode/
+# IntelliJ / WebStorm / Android Studio
+.idea/
+*.iml
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+# Vim / Emacs swap and temporary files
+*~
+*.swp
+*.swo
+.nfs*
+
+# ------------------------------------------------------------------------------
+# 4. Sensitive Credentials & Local Environment Files (Security Boundary)
+# ------------------------------------------------------------------------------
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.env.staging
+*.env
+*.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+*.pkcs12
+*.cer
+*.crt
+*.der
+*credentials*
+*secret*
+*id_rsa*
+*id_ecdsa*
+*id_ed25519*
+auth/
+tokens/
+
+# ------------------------------------------------------------------------------
+# 5. OS & System Metadata Files
+# ------------------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ------------------------------------------------------------------------------
+# 6. Binary & Media Assets (Non-text assets that consume token context)
+# ------------------------------------------------------------------------------
+# Images
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.ico
+*.bmp
+*.tiff
+# Audio/Video
+*.mp3
+*.wav
+*.ogg
+*.mp4
+*.webm
+*.avi
+*.mov
+# Documents & Presentations
+*.pdf
+*.docx
+*.xlsx
+*.pptx
+# Project-specific binary assets
+icon.png
+images/
+
+# ------------------------------------------------------------------------------
+# 7. Archives, Packages & Compressed Files
+# ------------------------------------------------------------------------------
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.gz
+*.rar
+*.7z
+*.bz2
+*.xz
+*.iso
+*.dmg
+
+# ------------------------------------------------------------------------------
+# 8. Dependency & Build Outputs
+# ------------------------------------------------------------------------------
+# Node/Yarn/PNPM
+node_modules/
+jspm_packages/
+.npm/
+.yarn/
+.pnpm-store/
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+.tox/
+.pytest_cache/
+.mypy_cache/
+# Compiled / Build Output directories
+dist/
+build/
+out/
+target/
+bin/
+obj/
+*.exe
+*.dll
+*.so
+*.dylib
+*.o
+*.a
+
+# ------------------------------------------------------------------------------
+# 9. Database, Cache & Log Files
+# ------------------------------------------------------------------------------
+*.log
+*.sqlite
+*.db
+*.db-journal
+*.sqlite3
+*.tmp
+*.temp
