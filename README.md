@@ -60,6 +60,12 @@ sudo dnf install zenity xinput NetworkManager pipewire-pulseaudio
 
 ### Advanced Power Management (Lenovo Legion Systems)
 
+Some Lenovo Legion systems, such as the Legion Pro 7 (16ARX8H), support up to 140w (20v 7a) charging over USB-C. The following must be true for this to work:
+- "Rapid Charge" firmware flag enabled — this tool handles it for you
+- OEM Lenovo 140w USB-C charger — must output 20v 7a which is proprietary
+- Plug charger into the rear USB-C port
+- Power off (or hibernate) the machine
+
 To enable the Lenovo Legion "Rapid Charge" toggle, your system requires the "ACPI Call" kernel module.
 
 > [!WARNING]
