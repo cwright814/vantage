@@ -1,9 +1,9 @@
 # ==============================================================================
-# Google AntiGravity CLI Standards: AI Context Exclusion (.aiexclude)
+# AI Agent & Coding Assistant Context Exclusion (.aiexclude)
 # ==============================================================================
 # This file specifies paths and glob patterns that should be excluded from being 
-# indexed, read, or used as context by AI agents (e.g., Google AntiGravity CLI/Desktop,
-# Gemini Code Assist, and other AI developers).
+# indexed, read, or used as context by AI development agents and assistants
+# (e.g., Claude Code, GitHub Copilot, Google Gemini/AntiGravity, OpenAI Codex).
 #
 # Syntax follows standard .gitignore rules.
 # ==============================================================================
@@ -21,8 +21,11 @@
 # 2. AI & Agent Configurations (Internal/State files)
 # ------------------------------------------------------------------------------
 .antigravitycli/
-.gemini/
 .agents/
+.claude/
+.codex/
+.copilot/
+.gemini/
 
 # ------------------------------------------------------------------------------
 # 3. IDE, Editor & Toolchain Configurations

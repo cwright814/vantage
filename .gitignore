@@ -1,1 +1,7 @@
-.antigravitycli
+# AI Agent / Assistant Configurations
+.agents/
+.antigravitycli/
+.claude/
+.codex/
+.copilot/
+.gemini/
